@@ -1,10 +1,10 @@
 
 -- Connection settings. In most cases "server" and "port" can be omitted,
 -- and in that case a DNS query for SRV records is used.
-jid      = "c3po@comun.hopto.org"
-password = "mylittlebot"
--- host     = "jabber.domain.com"
--- port     = 5223
+jid      = "user@domain.com"
+password = "some-password"
+host     = "jabber.domain.com"
+port     = 5223
 
 -- Logging: warnings and errors are always displayed by default.
 debug_log = true   -- Display of debug and informational messages.
@@ -13,12 +13,10 @@ raw_log   = false  -- Display raw XML input/output traffic.
 
 -- Default nick name used by the bot when connecting to MUC rooms. This
 -- can be overriden using per-room settings (see below for an example)
-nick = "C-3PO"
+nick = "luabot"
 
 -- Load plugins, and specify their configurations. Note that the "muc"
 -- plugin is always loaded and dos not need to be specified here.
-plugin "hello" {}
-
 plugin "invite" {}
 
 plugin "httpevent" {
@@ -139,31 +137,29 @@ plugin "dsa" {}
 plugin "cve" {}
 
 -- Tell the bot to join a room, and specify per-room settings
-
-room "2y2uflvtwfuq1@conference.comun.hopto.org"	{} --Sala Oficina Bancaria
---room "devel@conference.domain.com" {
+room "devel@conference.domain.com" {
 	-- Configure "urltitles" plugin in a per-room basis
---	urltitles = {
---		include = {
---			"^https?://bugs%.myproject%.org/",
---			"^https?://bugs%.myotherproject%.org/",
---		};
---	};
---}
---room "coffee@conference.domain.com" {
---	nick = "beans";
+	urltitles = {
+		include = {
+			"^https?://bugs%.myproject%.org/",
+			"^https?://bugs%.myotherproject%.org/",
+		};
+	};
+}
+room "coffee@conference.domain.com" {
+	nick = "beans";
 
 	-- Expand CVE and DSA shortcuts.
---	shortcuts = {
---		cve = true;
---		dsa = true;
---	};
---	quip = {
---		per_room = true;
---	};
---}
---room "luabot-dev@conference.domain.com" {
---   github = {
+	shortcuts = {
+		cve = true;
+		dsa = true;
+	};
+	quip = {
+		per_room = true;
+	};
+}
+room "luabot-dev@conference.domain.com" {
+   github = {
       -- Enables the webhook receiver. The bot will listen over HTTP in the
       -- port specified for the "httpevent" plugin. The URL for the webhook
       -- contains the name of the repository, prefixed with "github/". For
@@ -171,19 +167,19 @@ room "2y2uflvtwfuq1@conference.comun.hopto.org"	{} --Sala Oficina Bancaria
       --
       --   http://luabothost:8888/github/aperezdc/luabot
       --
---     webhook = {
---       repo = "aperezdc/luabot";
---       secret = "this is super secret";
---      };
---   };
+      webhook = {
+         repo = "aperezdc/luabot";
+         secret = "this is super secret";
+      };
+   };
 
---   travis = {
+   travis = {
       -- Enables the webhook receiver. The URL for the webook is the JID of the
       -- room, prefixed with "travis/". For this rxample, the URL to configure
       -- in Travis would be:
       --
       --   http://luabothost:8888/travis/luabot-dev@conference.domain.com
       --
---      token = "super secret token";
---   };
---}
+      token = "super secret token";
+   };
+}
